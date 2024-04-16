@@ -18,6 +18,11 @@ targets = []
 letters = []
 score = 0
 
+# Create a screen
+screen = Screen()
+
+# Set the title of the screen
+screen.title("Lluvia de letras")
 
 def inside(point):
     """Return True if point on screen."""
