@@ -1,7 +1,18 @@
 # .gitignore
 
-# Exclude the build directory
+# Este archivo es utilizado por Git para determinar qué archivos y directorios ignorar,
+# antes de hacer un commit.
+
+# Ignoramos 'lluvia-de-letras.spec' porque es un archivo de especificación generado por PyInstaller.
+# Este archivo es específico para la configuración de tu proyecto y tu sistema.
+# Puede no ser útil o incluso causar problemas si otros desarrolladores intentan usarlo en sus propios sistemas.
+lluvia-de-letras.spec
+
+# Excluimos el directorio 'build/' porque contiene archivos generados durante el proceso de compilación.
+# Estos archivos son específicos para cada compilación y no deben ser compartidos entre desarrolladores.
 build/
 
-# Exclude the dist directory
+# Excluimos el directorio 'dist/' porque contiene los archivos de distribución del proyecto.
+# Estos son los archivos que se generan cuando preparas tu proyecto para ser distribuido a otros usuarios.
+# Como estos archivos se generan a partir del código fuente, no necesitamos incluirlos en el repositorio.
 dist/
