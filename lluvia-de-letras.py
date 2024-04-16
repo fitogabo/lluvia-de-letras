@@ -8,6 +8,8 @@ Exercises
 4. Make the letters more frequent as the score gets higher.
 """
 
+import pygame
+
 from random import choice, randrange
 from string import ascii_lowercase
 from turtle import *
@@ -43,6 +45,12 @@ def draw():
 
     update()
 
+# Initialize the mixer module
+pygame.mixer.init()
+
+# Load the sounds
+sounds = {letter: pygame.mixer.Sound(f'sonidos/{letter}.wav') for letter in ascii_lowercase}
+
 
 def move():
     """Move letters."""
@@ -52,6 +60,9 @@ def move():
         targets.append(target)
         letter = choice(ascii_lowercase)
         letters.append(letter)
+
+  # Play the sound for the new letter
+        sounds[letter].play()
 
     for target in targets:
         target.y -= 1
