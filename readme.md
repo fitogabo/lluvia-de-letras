@@ -1,1 +1,0 @@
-lluvia de letras es un juego simple e van callendo letras acompañadas de un sonido grabado por la familia. Uno debe rapidamente tipearlas en el teclado y casa letra correcta suma un punto y incorrecta resta un punto.
