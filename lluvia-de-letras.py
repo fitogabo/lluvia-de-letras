@@ -26,6 +26,7 @@ screen = Screen()
 # Set the title of the screen
 screen.title("Lluvia de letras")
 
+
 def inside(point):
     """Return True if point on screen."""
     return -200 < point.x < 200 and -200 < point.y < 200
@@ -41,15 +42,18 @@ def draw():
 
     # Draw score
     goto(200, 200)
-    write("Score: " + str(score), align='right', font=('Consolas', 20, 'normal'))
+    write("Score: " + str(score), align='right',
+          font=('Consolas', 20, 'normal'))
 
     update()
+
 
 # Initialize the mixer module
 pygame.mixer.init()
 
 # Load the sounds
-sounds = {letter: pygame.mixer.Sound(f'sonidos/{letter}.wav') for letter in ascii_lowercase}
+sounds = {letter: pygame.mixer.Sound(
+    f'sonidos/{letter}.wav') for letter in ascii_lowercase}
 
 
 def move():
