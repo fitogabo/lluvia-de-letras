@@ -1,0 +1,7 @@
+# .gitignore
+
+# Exclude the build directory
+build/
+
+# Exclude the dist directory
+dist/
