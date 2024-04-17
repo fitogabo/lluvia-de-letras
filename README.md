@@ -1,4 +1,4 @@
-# lluvia-de-letras
+# 🌦️🔡 Lluvia de letras
 Videojuego donde van cayendo letras y al presionarlas en el teclado desaparecen
 
 ## Aprendizaje y Mecanografía
