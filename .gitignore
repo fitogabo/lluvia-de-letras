@@ -16,3 +16,6 @@ build/
 # Estos son los archivos que se generan cuando preparas tu proyecto para ser distribuido a otros usuarios.
 # Como estos archivos se generan a partir del código fuente, no necesitamos incluirlos en el repositorio.
 dist/
+
+# Excluimos el directorio 'pyinstaller/' porque contiene archivos generados por PyInstaller que no queremos rastrear.
+pyinstaller/
