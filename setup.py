@@ -9,7 +9,7 @@ os.environ['TK_LIBRARY'] = r'C:\Users\gabri\AppData\Local\Programs\Python\Python
 build_exe_options = {
     "packages": ["pygame", "random", "string", "turtle", "freegames"],
     "include_files": ["sonidos/"],
-    "excludes": ["tkinter"]
+    "excludes": []
 }
 
 base = None
