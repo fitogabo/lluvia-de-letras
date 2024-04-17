@@ -21,12 +21,12 @@ Para instalar PyInstaller, puedes usar pip, el administrador de paquetes de Pyth
 
 ```bash
 pip install pyinstaller
-
+```
 Una vez que PyInstaller esté instalado, puedes compilar el juego utilizando el siguiente comando:
 
-
+```bash
 pyinstaller --onefile --add-data 'sonidos/*;sonidos/' lluvia-de-letras.py
-
+```
 Este comando creará un archivo ejecutable en la carpeta dist.
 
 Importante: Después de la compilación, debes copiar manualmente el directorio de la carpeta "sonidos" al mismo lugar donde se encuentra el archivo ejecutable. Esto es necesario porque el juego necesita acceder a estos archivos de sonido para funcionar correctamente.
