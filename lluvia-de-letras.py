@@ -1,20 +1,16 @@
-"""Game to practice typing.
-
-Exercises
-
-1. Change the speed of letters.
-2. Add uppercase letters.
-3. Make the game faster as the score gets higher.
-4. Make the letters more frequent as the score gets higher.
-"""
-
+import sys
+import os
 import pygame
-
 from random import choice, randrange
 from string import ascii_lowercase
 from turtle import *
-
 from freegames import vector
+
+# Check if we're running in a PyInstaller bundle
+if getattr(sys, 'frozen', False):
+    application_path = sys._MEIPASS
+else:
+    application_path = os.path.dirname(os.path.abspath(__file__))
 
 targets = []
 letters = []
@@ -53,7 +49,7 @@ pygame.mixer.init()
 
 # Load the sounds
 sounds = {letter: pygame.mixer.Sound(
-    f'sonidos/{letter}.wav') for letter in ascii_lowercase}
+    os.path.join(sys._MEIPASS, 'sonidos', f'{letter}.wav')) for letter in ascii_lowercase}
 
 
 def move():
@@ -65,7 +61,7 @@ def move():
         letter = choice(ascii_lowercase)
         letters.append(letter)
 
-  # Play the sound for the new letter
+        # Play the sound for the new letter
         sounds[letter].play()
 
     for target in targets:
@@ -95,12 +91,16 @@ def press(key):
     print('Score:', score)
 
 
-setup(420, 420, 370, 0)
-hideturtle()
-up()
-tracer(False)
-listen()
-for letter in ascii_lowercase:
-    onkey(lambda letter=letter: press(letter), letter)
-move()
-done()
+try:
+    setup(420, 420, 370, 0)
+    hideturtle()
+    up()
+    tracer(False)
+    listen()
+    for letter in ascii_lowercase:
+        onkey(lambda letter=letter: press(letter), letter)
+    move()
+    done()
+except Exception as e:
+    print(e)
+    input('Press enter to exit...')
