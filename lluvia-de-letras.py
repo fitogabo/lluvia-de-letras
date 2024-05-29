@@ -18,7 +18,7 @@ score = 0
 pygame.init()
 
 # Create a screen
-screen = pygame.display.set_mode((420, 420))
+screen = pygame.display.set_mode((800, 600))
 
 # Set the title of the screen
 pygame.display.set_caption("Lluvia de letras")
