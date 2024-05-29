@@ -3,8 +3,6 @@ import os
 import pygame
 from random import choice, randrange
 from string import ascii_lowercase
-from turtle import *
-from freegames import vector
 
 # Check if we're running in a PyInstaller bundle
 if getattr(sys, 'frozen', False):
@@ -16,47 +14,41 @@ targets = []
 letters = []
 score = 0
 
+# Initialize the mixer and pygame module
+pygame.init()
+
 # Create a screen
-screen = Screen()
+screen = pygame.display.set_mode((420, 420))
 
 # Set the title of the screen
-screen.title("Lluvia de letras")
-
-
-def inside(point):
-    """Return True if point on screen."""
-    return -200 < point.x < 200 and -200 < point.y < 200
-
-
-def draw():
-    """Draw letters and score."""
-    clear()
-
-    for target, letter in zip(targets, letters):
-        goto(target.x, target.y)
-        write(letter, align='center', font=('Consolas', 20, 'normal'))
-
-    # Draw score
-    goto(200, 200)
-    write("Score: " + str(score), align='right',
-          font=('Consolas', 20, 'normal'))
-
-    update()
-
-
-# Initialize the mixer module
-pygame.mixer.init()
+pygame.display.set_caption("Lluvia de letras")
 
 # Load the sounds
 sounds = {letter: pygame.mixer.Sound(
-    os.path.join(sys._MEIPASS, 'sonidos', f'{letter}.wav')) for letter in ascii_lowercase}
+    os.path.join(application_path, 'sonidos', f'{letter}.wav')) for letter in ascii_lowercase}
 
+font = pygame.font.Font('freesansbold.ttf', 20)
+
+def draw():
+    """Draw letters and score."""
+    screen.fill((0, 0, 0))
+
+    for target, letter in zip(targets, letters):
+        text = font.render(letter, True, (255, 255, 255))
+        screen.blit(text, target)
+
+    # Draw score
+    score_text = font.render("Score: " + str(score), True, (255, 255, 255))
+    screen.blit(score_text, (200, 200))
+
+    pygame.display.update()
 
 def move():
     """Move letters."""
+    global targets
     if randrange(20) == 0:
         x = randrange(-150, 150)
-        target = vector(x, 200)
+        target = pygame.Vector2(x, 200)
         targets.append(target)
         letter = choice(ascii_lowercase)
         letters.append(letter)
@@ -64,17 +56,13 @@ def move():
         # Play the sound for the new letter
         sounds[letter].play()
 
-    for target in targets:
-        target.y -= 1
+    targets = [target - pygame.Vector2(0, 1) for target in targets]
 
     draw()
 
-    for target in targets:
-        if not inside(target):
-            return
+    targets = [target for target in targets if -200 < target.x < 200 and -200 < target.y < 200]
 
-    ontimer(move, 100)
-
+    pygame.time.set_timer(pygame.USEREVENT, 100)
 
 def press(key):
     """Press key."""
@@ -90,17 +78,20 @@ def press(key):
 
     print('Score:', score)
 
-
 try:
-    setup(420, 420, 370, 0)
-    hideturtle()
-    up()
-    tracer(False)
-    listen()
-    for letter in ascii_lowercase:
-        onkey(lambda letter=letter: press(letter), letter)
-    move()
-    done()
+    running = True
+    pygame.time.set_timer(pygame.USEREVENT, 100)  # Move this line here
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key >= pygame.K_a and event.key <= pygame.K_z:
+                    press(chr(event.key - pygame.K_a + ord('a')))
+            elif event.type == pygame.USEREVENT:
+                move()
 except Exception as e:
     print(e)
     input('Press enter to exit...')
+finally:
+    pygame.quit()
