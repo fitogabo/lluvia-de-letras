@@ -13,6 +13,7 @@ else:
 targets = []
 letters = []
 score = 0
+MARGIN = 50  # Adjust this value to change the size of the margin
 
 # Initialize the mixer and pygame module
 pygame.init()
@@ -47,7 +48,7 @@ def move():
     """Move letters."""
     global targets
     if randrange(20) == 0:
-        x = randrange(-150, 150)
+        x = randrange(-150 + MARGIN, 150 - MARGIN)
         target = pygame.Vector2(x, 200)
         targets.append(target)
         letter = choice(ascii_lowercase)
@@ -60,7 +61,7 @@ def move():
 
     draw()
 
-    targets = [target for target in targets if -200 < target.x < 200 and -200 < target.y < 200]
+    targets = [target for target in targets if -200 + MARGIN < target.x < 200 - MARGIN and -200 + MARGIN < target.y < 200 - MARGIN]
 
     pygame.time.set_timer(pygame.USEREVENT, 100)
 
