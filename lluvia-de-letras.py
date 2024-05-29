@@ -20,7 +20,7 @@ SPEED = 0.5  # Decrease the speed
 pygame.init()
 
 # Create a screen
-screen = pygame.display.set_mode((800, 600))
+screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)  # Use fullscreen
 
 # Set the title of the screen
 pygame.display.set_caption("Lluvia de letras")
