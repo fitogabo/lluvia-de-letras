@@ -13,7 +13,8 @@ else:
 targets = []
 letters = []
 score = 0
-MARGIN = 50  # Adjust this value to change the size of the margin
+FONT_SIZE = 32  # Increase the font size
+SPEED = 0.5  # Decrease the speed
 
 # Initialize the mixer and pygame module
 pygame.init()
@@ -28,7 +29,7 @@ pygame.display.set_caption("Lluvia de letras")
 sounds = {letter: pygame.mixer.Sound(
     os.path.join(application_path, 'sonidos', f'{letter}.wav')) for letter in ascii_lowercase}
 
-font = pygame.font.Font('freesansbold.ttf', 20)
+font = pygame.font.Font('freesansbold.ttf', FONT_SIZE)
 
 def draw():
     """Draw letters and score."""
@@ -48,7 +49,7 @@ def move():
     """Move letters."""
     global targets
     if randrange(20) == 0:
-        x = randrange(-150 + MARGIN, 150 - MARGIN)
+        x = randrange(-150, 150)
         target = pygame.Vector2(x, 200)
         targets.append(target)
         letter = choice(ascii_lowercase)
@@ -57,11 +58,11 @@ def move():
         # Play the sound for the new letter
         sounds[letter].play()
 
-    targets = [target - pygame.Vector2(0, 1) for target in targets]
+    targets = [target - pygame.Vector2(0, SPEED) for target in targets]  # Decrease the speed
 
     draw()
 
-    targets = [target for target in targets if -200 + MARGIN < target.x < 200 - MARGIN and -200 + MARGIN < target.y < 200 - MARGIN]
+    targets = [target for target in targets if -200 < target.x < 200 and -200 < target.y < 200]
 
     pygame.time.set_timer(pygame.USEREVENT, 100)
 
